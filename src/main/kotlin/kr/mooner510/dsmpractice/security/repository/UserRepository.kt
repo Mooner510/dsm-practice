@@ -8,4 +8,7 @@ interface UserRepository : JpaRepository<User, UUID> {
 
 
     fun findByLoginId(loginId: String): Optional<User>
+
+
+    fun existsByLoginIdIgnoreCase(loginId: String): Boolean
 }

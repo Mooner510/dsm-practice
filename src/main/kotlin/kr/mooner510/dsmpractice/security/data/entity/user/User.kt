@@ -29,7 +29,7 @@ abstract class User(
     @Column(nullable = false, unique = true, columnDefinition = "BINARY(16)")
     val id: UUID = UUID.randomUUID(),
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 31)
     var loginId: String,
 
     @Column(nullable = false)

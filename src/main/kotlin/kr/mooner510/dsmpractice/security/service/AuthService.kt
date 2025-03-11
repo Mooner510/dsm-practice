@@ -4,6 +4,7 @@ import kr.mooner510.dsmpractice.global.error.ErrorCode
 import kr.mooner510.dsmpractice.global.error.data.GlobalError
 import kr.mooner510.dsmpractice.security.component.TokenProvider
 import kr.mooner510.dsmpractice.security.data.entity.JwtToken
+import kr.mooner510.dsmpractice.security.data.entity.user.Student
 import kr.mooner510.dsmpractice.security.data.request.LoginRequest
 import kr.mooner510.dsmpractice.security.data.request.ReissueRequest
 import kr.mooner510.dsmpractice.security.data.response.TokenResponse
@@ -12,6 +13,7 @@ import kr.mooner510.dsmpractice.security.repository.JwtTokenRepository
 import kr.mooner510.dsmpractice.security.repository.UserRepository
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import java.util.*
 import kotlin.jvm.optionals.getOrNull
 
 @Service
@@ -31,6 +33,18 @@ class AuthService(
             return token
         }
         throw GlobalError(ErrorCode.LOGIN_FAILED)
+    }
+
+    fun signUp(req: LoginRequest) {
+        if (userRepository.existsByLoginIdIgnoreCase(req.id)) throw GlobalError(ErrorCode.USER_ALREADY_EXISTS)
+        if (req.id.length > 30) throw GlobalError(ErrorCode.USER_NAME_TOO_LONG)
+        userRepository.save(
+            Student(
+                UUID.randomUUID(),
+                req.id,
+                passwordEncoder.encode(req.pw)
+            )
+        )
     }
 
     fun reissue(req: ReissueRequest): TokenResponseAccessOnly {

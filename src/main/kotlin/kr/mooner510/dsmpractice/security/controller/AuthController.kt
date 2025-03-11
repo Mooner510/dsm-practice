@@ -22,6 +22,13 @@ class AuthController(
         return authService.login(req)
     }
 
+    @PostMapping("sign-up")
+    fun signup(
+        @RequestBody req: LoginRequest,
+    ) {
+        authService.signUp(req)
+    }
+
     @PostMapping("reissue")
     fun reissue(
         @RequestBody req: ReissueRequest,
