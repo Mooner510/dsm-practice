@@ -10,9 +10,7 @@ import jakarta.persistence.Inheritance
 import jakarta.persistence.InheritanceType
 import jakarta.persistence.Table
 import kr.mooner510.dsmpractice.global.data.entity.BaseEntity
-import kr.mooner510.dsmpractice.security.data.dto.UserDto
 import kr.mooner510.dsmpractice.security.data.types.UserType
-import kr.mooner510.dsmpractice.utils.UUIDParser.toURL
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.SQLRestriction
 import org.springframework.security.core.GrantedAuthority
@@ -83,9 +81,5 @@ abstract class User(
 
     override fun isEnabled(): Boolean {
         return !isDeleted
-    }
-
-    fun toDto(): UserDto {
-        return UserDto(this.id, this.loginId, this.thumbnail?.toURL())
     }
 }
