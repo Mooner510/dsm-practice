@@ -24,7 +24,7 @@ class AuthService(
 ) {
     fun login(req: LoginRequest): TokenResponse {
         val user = userRepository.findByLoginId(req.id).getOrNull() ?: throw GlobalError(ErrorCode.LOGIN_FAILED)
-        if (passwordEncoder.matches(user.password, req.pw)) {
+        if (passwordEncoder.matches(req.pw, user.password)) {
             val token = TokenResponse(
                 tokenProvider.newAccess(user),
                 tokenProvider.newRefresh(user)

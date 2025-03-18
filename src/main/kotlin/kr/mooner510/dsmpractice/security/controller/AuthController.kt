@@ -1,5 +1,6 @@
 package kr.mooner510.dsmpractice.security.controller
 
+import io.swagger.v3.oas.annotations.Operation
 import kr.mooner510.dsmpractice.security.data.request.LoginRequest
 import kr.mooner510.dsmpractice.security.data.request.ReissueRequest
 import kr.mooner510.dsmpractice.security.data.response.TokenResponse
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 class AuthController(
     private val authService: AuthService,
 ) {
+    @Operation(summary = "로그인")
     @PostMapping("sign-in")
     fun login(
         @RequestBody req: LoginRequest,
@@ -22,6 +24,7 @@ class AuthController(
         return authService.login(req)
     }
 
+    @Operation(summary = "회원가입")
     @PostMapping("sign-up")
     fun signup(
         @RequestBody req: LoginRequest,
@@ -29,6 +32,7 @@ class AuthController(
         authService.signUp(req)
     }
 
+    @Operation(summary = "토큰 재발급")
     @PostMapping("reissue")
     fun reissue(
         @RequestBody req: ReissueRequest,

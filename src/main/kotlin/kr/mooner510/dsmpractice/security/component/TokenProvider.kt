@@ -33,7 +33,7 @@ class TokenProvider(
             .subject("acc")
             .signWith(key)
             .claim("name", user.loginId)
-            .claim("type", user.userType)
+            .claim("type", user.userType.toString())
             .issuedAt(Date.from(now))
             .expiration(Date.from(now.plusSeconds(accessTime)))
             .compact()
@@ -47,7 +47,7 @@ class TokenProvider(
             .subject("ref")
             .signWith(key)
             .claim("name", user.loginId)
-            .claim("type", user.userType)
+            .claim("type", user.userType.toString())
             .issuedAt(Date.from(now))
             .expiration(Date.from(now.plusSeconds(refreshTime)))
             .compact()
@@ -61,7 +61,7 @@ class TokenProvider(
             if (isAccessToken && claims.subject != "acc") throw GlobalError(ErrorCode.UNSUPPORTED_TOKEN)
 
             val loginId = claims.get("name", String::class.java)
-            val userType = claims.get("type", UserType::class.java)!!
+            val userType = UserType.valueOf(claims.get("type", String::class.java))
 
             return when (userType) {
                 UserType.Admin -> Admin(
