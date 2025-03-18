@@ -10,8 +10,7 @@ class CORSConfig : WebMvcConfigurer {
         registry.addMapping("/**")
             .allowedOrigins(
                 "http://localhost:3000",
-                "http://localhost",
-                "*"
+                "http://localhost"
             )
             .allowedMethods("*")
     }
