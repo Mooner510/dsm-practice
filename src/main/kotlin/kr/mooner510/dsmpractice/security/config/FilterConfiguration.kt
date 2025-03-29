@@ -3,7 +3,6 @@ package kr.mooner510.dsmpractice.security.config
 import com.fasterxml.jackson.databind.ObjectMapper
 import kr.mooner510.dsmpractice.security.component.ExceptionFilter
 import kr.mooner510.dsmpractice.security.component.JwtFilter
-import kr.mooner510.dsmpractice.security.component.LoggingFilter
 import kr.mooner510.dsmpractice.security.component.TokenProvider
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter
